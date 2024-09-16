@@ -22,7 +22,7 @@ public class CustomOAuth2User implements OAuth2User {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(kakaoUserInfo.role()));
+        authorities.add(new SimpleGrantedAuthority(kakaoUserInfo.role().getRole()));
         return authorities;
     }
 

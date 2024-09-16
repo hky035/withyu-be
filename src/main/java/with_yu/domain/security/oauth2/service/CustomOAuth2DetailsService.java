@@ -1,14 +1,24 @@
 package with_yu.domain.security.oauth2.service;
 
-import org.springframework.security.core.userdetails.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.stereotype.Service;
+import with_yu.domain.security.oauth2.dto.CustomOAuth2User;
 import with_yu.domain.security.oauth2.dto.KakaoResponse;
+import with_yu.domain.security.oauth2.dto.KakaoUserInfoDto;
 import with_yu.domain.security.oauth2.dto.OAuth2Resposne;
+import with_yu.domain.user.entity.Role;
+import with_yu.domain.user.entity.User;
+import with_yu.domain.user.repository.UserRepository;
 
+@Service
+@RequiredArgsConstructor
 public class CustomOAuth2DetailsService extends DefaultOAuth2UserService {
+
+    private final UserRepository userRepository;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -35,15 +45,24 @@ public class CustomOAuth2DetailsService extends DefaultOAuth2UserService {
 
         if(existUser == null) { // 한 번도 로그인 X => role만 GUEST로 부여하여서 로그인 시 signup페이지로 리다이렉트 되도록
             // 카카오 프로필 이미지 적용 등 새로운 User를 생성해야함
+            User user = User.builder()
+                    .email(oAuth2Resposne.getEmail())
+                    .nickname(oAuth2Resposne.getName())
+                    .providerId(oAuth2Resposne.getProvider() + " " + oAuth2Resposne.getIdInProvider())
+                    .profileImageUrl(((KakaoResponse)oAuth2Resposne).getImageUrl().get("profile")) // check
+                    .role(Role.GUEST)
+                    .build();
+
+            userRepository.save(user);
+            existUser = user;
 
         } else { // 이미 존재하는 유저 => 이메일만 업데이트
-            existUser.setEmail(oAuth2Resposne.getEmail());
+            existUser.updateEmail(oAuth2Resposne.getEmail());
 
             userRepository.save(existUser);
         }
 
 
-
-
+        return new CustomOAuth2User(KakaoUserInfoDto.of(existUser.getNickname(), existUser.getProviderId(), existUser.getRole(), existUser.getEmail()));
     }
 }
