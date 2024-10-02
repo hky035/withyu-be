@@ -7,4 +7,8 @@ public record ErrorRes(
     public static ErrorRes of(int status, String message){
         return new ErrorRes(status, message);
     }
+
+    public static ErrorRes from(ErrorType errorType){
+        return new ErrorRes(errorType.getStatusCode(), errorType.getMessage());
+    }
 }

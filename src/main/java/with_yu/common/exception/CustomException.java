@@ -1,4 +1,4 @@
-package with_yu.exception;
+package with_yu.common.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,7 +1,6 @@
-package with_yu.exception;
+package with_yu.common.exception;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -16,10 +15,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    // 커스텀 예외 발생 - ErrorType 참고
+    // 커스텀 예외 처리
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<?> handleCustomException(final CustomException e) {
         ErrorType error = e.getErrorType();
@@ -39,9 +38,19 @@ public class GlobalExceptionHandler {
     }
 
     // 일반 예외 처리
+    @ExceptionHandler
     protected ResponseEntity<?> handleException(final Exception e) {
         ErrorRes error = new ErrorRes(INTERNAL_SERVER_ERROR.getStatusCode(), INTERNAL_SERVER_ERROR.getMessage());
-        log.error("Error occured : [errorCode={}, message={}]",error.status(), error.message());
+        log.error("Error occured : [errorCode={}, message={}, Stack Trace={}]",e.getClass(), e.getMessage(), getStackTrace(e));
         return ResponseEntity.status(error.status()).body(error);
+    }
+
+    private String getStackTrace(final Exception e) {
+        StackTraceElement[] stackTrace = e.getStackTrace();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < Math.min(stackTrace.length, 5); i++) {
+            sb.append(stackTrace[i].toString()).append("\n");
+        }
+        return sb.toString();
     }
 }
