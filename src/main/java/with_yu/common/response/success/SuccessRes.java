@@ -2,7 +2,9 @@ package with_yu.common.response.success;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
+import lombok.Getter;
 
+@Getter
 public class SuccessRes<T> {
 
     private int status;
@@ -32,7 +34,7 @@ public class SuccessRes<T> {
                 .build();
     }
 
-    public static <T> SuccessRes<?> from(SuccessType success, T data){
+    public static <T> SuccessRes<?> of(SuccessType success, T data){
         return SuccessRes.builder()
                 .status(success.getStatusCode())
                 .message(success.getMessage())
