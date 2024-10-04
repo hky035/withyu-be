@@ -1,20 +1,50 @@
 package with_yu.common.response.success;
 
-public record SuccessRes<T>(
-        int status,
-        String message,
-        T data
-) {
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Builder;
+
+public class SuccessRes<T> {
+
+    private int status;
+    private String message;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private T data;
+
+    @Builder
+    private SuccessRes(int status, String message, T data) {
+        this.status = status;
+        this.message = message;
+        this.data = data;
+    }
+
     public static SuccessRes<?> from(SuccessType success){
-        return new SuccessRes<>(success.getStatusCode(), success.getMessage(), null);
+        return SuccessRes.builder()
+                .status(success.getStatusCode())
+                .message(success.getMessage())
+                .build();
     }
 
     public static <T> SuccessRes<?> from(T data){
-        return new SuccessRes<>(SuccessType.OK.getStatusCode(), SuccessType.OK.getMessage(), data);
+        return SuccessRes.builder()
+                .status(SuccessType.OK.getStatusCode())
+                .message(SuccessType.OK.getMessage())
+                .data(data)
+                .build();
     }
 
     public static <T> SuccessRes<?> from(SuccessType success, T data){
-        return new SuccessRes<>(success.getStatusCode(), success.getMessage(), data);
+        return SuccessRes.builder()
+                .status(success.getStatusCode())
+                .message(success.getMessage())
+                .data(data)
+                .build();
+    }
+
+    public static SuccessRes<?> ok(){
+        return SuccessRes.builder()
+                .status(SuccessType.OK.getStatusCode())
+                .message(SuccessType.OK.getMessage())
+                .build();
     }
 
 }
