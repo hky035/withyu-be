@@ -12,6 +12,7 @@ public enum ErrorType {
     UN_AUTHENTICATION(HttpStatus.UNAUTHORIZED, "인증되지 않은 요청입니다."),
     TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, "토큰이 만료되었습니다."),
     INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "인증되지 않은 토큰입니다."),
+    LOGIN_FAILED(HttpStatus.UNAUTHORIZED, "로그인 실패입니다."),
     SOCIAL_LOGIN_FAILED(HttpStatus.UNAUTHORIZED, "소셜 로그인 실패입니다."),
 
     // 인가

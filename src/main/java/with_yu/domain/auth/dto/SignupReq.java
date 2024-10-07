@@ -1,6 +1,7 @@
 package with_yu.domain.auth.dto;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
+import with_yu.common.util.PasswordEncoderHelper;
 import with_yu.domain.user.entity.Role;
 import with_yu.domain.user.entity.User;
 
@@ -15,12 +16,12 @@ public class SignupReq {
             String phoneNumber,
             int studentNumber
     ) {
-        public User toEntity(PasswordEncoder passwordEncoder) {
+        public User toEntity(PasswordEncoderHelper passwordEncoderHelper) {
             return User.builder()
                     .name(name)
                     .nickname(nickname)
                     .email(email)
-                    .password(passwordEncoder.encode(password))
+                    .password(passwordEncoderHelper.encode(password))
                     .department(department)
                     .phoneNumber(phoneNumber)
                     .studentNumber(studentNumber)
