@@ -12,7 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-    private static final String[] PUBLIC_ENDPOINT = {"/**"};
+    private static final String[] PUBLIC_ENDPOINT = {"/**", "/v1/auth/**"};
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
