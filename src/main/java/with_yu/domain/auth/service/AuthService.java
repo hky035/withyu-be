@@ -28,6 +28,7 @@ public class AuthService {
         userService.createUser(request.toEntity(passwordEncoderHelper));
     }
 
+    @Transactional(readOnly = true)
     public void login(LoginReq.General request){
         User user = userService.readUserByEmail(request.email())
                 .orElseThrow(() -> new CustomException(ErrorType.USER_NOT_FOUND));
