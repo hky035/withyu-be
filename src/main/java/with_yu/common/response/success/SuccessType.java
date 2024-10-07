@@ -14,7 +14,7 @@ public enum SuccessType {
 
     // 201
     CREATED(HttpStatus.CREATED, "등록을 성공하였습니다."),
-    USER_CREATED(HttpStatus.CREATED, "등록을 성공하였습니다."),
+    USER_CREATED(HttpStatus.CREATED, "회원가입에 성공하였습니다."),
     CARPOOL_CREATED(HttpStatus.CREATED, "카풀 등록을 성공하였습니다.");
 
     private final HttpStatus status;
