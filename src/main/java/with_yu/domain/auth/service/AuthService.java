@@ -1,7 +1,6 @@
 package with_yu.domain.auth.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import with_yu.common.exception.CustomException;
@@ -10,7 +9,6 @@ import with_yu.common.util.PasswordEncoderHelper;
 import with_yu.domain.auth.dto.LoginReq;
 import with_yu.domain.auth.dto.SignupReq;
 import with_yu.domain.user.entity.User;
-import with_yu.domain.user.repository.UserRepository;
 import with_yu.domain.user.service.UserService;
 
 @Service

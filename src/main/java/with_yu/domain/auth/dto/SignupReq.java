@@ -1,6 +1,5 @@
 package with_yu.domain.auth.dto;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import with_yu.common.util.PasswordEncoderHelper;
 import with_yu.domain.user.entity.Role;
 import with_yu.domain.user.entity.User;
