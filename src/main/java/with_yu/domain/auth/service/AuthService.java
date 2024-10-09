@@ -7,6 +7,8 @@ import with_yu.common.exception.CustomException;
 import with_yu.common.response.error.ErrorType;
 import with_yu.common.util.JwtUtil;
 import with_yu.common.util.PasswordEncoderHelper;
+import with_yu.common.util.RedisProperties;
+import with_yu.common.util.RedisUtil;
 import with_yu.domain.auth.dto.JwtTokenDto;
 import with_yu.domain.auth.dto.LoginReq;
 import with_yu.domain.auth.dto.SignupReq;
@@ -20,6 +22,7 @@ public class AuthService {
     private final UserService userService;
     private final PasswordEncoderHelper passwordEncoderHelper;
     private final JwtUtil jwtUtil;
+    private final RedisUtil redisUtil;
 
     @Transactional
     public void signUp(SignupReq.General request){
@@ -39,6 +42,9 @@ public class AuthService {
 
         String accessToken = jwtUtil.generateAccessToken(user.getEmail(), user.getRole());
         String refreshToken = jwtUtil.generateRefreshToken(user.getEmail(), user.getRole());
+
+        String key = RedisProperties.REFRESH_TOKEN_PREFIX + user.getEmail();
+        redisUtil.save(key, refreshToken, jwtUtil.getRefreshTokenExpiration());
 
         return JwtTokenDto.of(accessToken, refreshToken);
     }
