@@ -2,6 +2,7 @@ package with_yu.common.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import with_yu.domain.user.entity.Role;
@@ -47,6 +48,14 @@ public class JwtUtil {
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
+    }
+
+    public String getSubject(String token){
+        return this.parseToken(token).getSubject();
+    }
+
+    public long getRefreshTokenExpiration(){
+        return this.refreshTokenExpiration.toMillis();
     }
 
 
