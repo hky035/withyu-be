@@ -23,9 +23,7 @@ public class MailService {
     private final SpringTemplateEngine templateEngine;
 
     @Async
-    public void sendMail(String email) throws MessagingException {
-        try {
-
+    public void sendMail(String email) throws Exception {
 
             MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMailMessage, true, "utf-8");
@@ -42,10 +40,6 @@ public class MailService {
             javaMailSender.send(mimeMailMessage);
             
             // redis 도입 필요
-        } catch (MessagingException e) {
-            throw e; // rethrown
-        }
-
     }
 
     private String createRandomCode(){
