@@ -41,7 +41,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler
     protected ResponseEntity<?> handleException(final Exception e) {
         ErrorRes error = new ErrorRes(INTERNAL_SERVER_ERROR.getStatusCode(), INTERNAL_SERVER_ERROR.getMessage());
-        log.error("Error occured : [errorCode={}, message={}, Stack Trace={}]",e.getClass(), e.getMessage(), getStackTrace(e));
+        log.error("Error occured : [errorCode={}, message={}]\n<<Stack Trace 5 lines>>\n{}",e.getClass(), e.getMessage(), getStackTrace(e));
         return ResponseEntity.status(error.status()).body(error);
     }
 
