@@ -5,14 +5,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import with_yu.common.exception.CustomException;
 import with_yu.common.response.error.ErrorType;
 import with_yu.common.response.success.SuccessRes;
 import with_yu.common.response.success.SuccessType;
+import with_yu.domain.mail.dto.CodeVerificationReq;
 import with_yu.domain.mail.service.MailService;
 
 @Controller
@@ -36,5 +34,11 @@ public class MailController {
                 .body(SuccessRes.from(SuccessType.MAIL_SEND_SUCCESS));
     }
 
+    @PostMapping("/email-verification")
+    public ResponseEntity<?> codeVerification(@RequestBody CodeVerificationReq req){
+        mailService.verifyCode(req);
+        return ResponseEntity.status(SuccessType.VERIFY_CODE_SUCCESS.getStatus())
+                .body(SuccessRes.from(SuccessType.VERIFY_CODE_SUCCESS));
+    }
 
 }
