@@ -40,5 +40,5 @@ jwt:
 mail:
   host: smtp.gmail.com
   port: 587
-  username: ${ADMIN_EMAIL:admin@withyu.com}
+  admin-mail: ${ADMIN_EMAIL:admin@withyu.com}
   password: ${ADMIN_EMAIL_APP_PASSWORD:password}
