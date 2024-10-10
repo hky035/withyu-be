@@ -11,7 +11,7 @@ import java.util.Properties;
 @Configuration
 public class MailConfig {
 
-    @Value("${mail.username}") private String username;
+    @Value("${mail.admin-mail}") private String username;
     @Value("${mail.password}") private String password;
     @Value("${mail.host}") private String host;
     @Value("${mail.port}") private int port;
