@@ -5,11 +5,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import with_yu.common.exception.CustomException;
 import with_yu.common.response.error.ErrorType;
+import with_yu.common.response.success.SuccessRes;
+import with_yu.common.response.success.SuccessType;
 import with_yu.domain.mail.service.MailService;
 
 @Controller
@@ -20,7 +23,7 @@ public class MailController {
 
     private final MailService mailService;
 
-    @PostMapping("/email-verification")
+    @GetMapping("/email-verification")
     public ResponseEntity<?> emailVerification(@RequestParam("email") String email) {
         try{
             mailService.sendMail(email);
@@ -29,7 +32,9 @@ public class MailController {
             throw new CustomException(ErrorType.MAIL_SEND_FAILED);
         }
 
-        return ResponseEntity.ok().body(null);
+        return ResponseEntity.status(SuccessType.MAIL_SEND_SUCCESS.getStatus())
+                .body(SuccessRes.from(SuccessType.MAIL_SEND_SUCCESS));
     }
+
 
 }
