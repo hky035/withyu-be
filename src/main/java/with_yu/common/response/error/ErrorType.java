@@ -8,6 +8,12 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 public enum ErrorType {
 
+    // 400
+    BAD_REQUEST(HttpStatus.BAD_REQUEST, "유효성 검증 실패. 잘못된 요청입니다."),
+    MAIL_SEND_FAILED(HttpStatus.BAD_REQUEST, "이메일 발송에 실패하였습니다."),
+    WRONG_CODE(HttpStatus.BAD_REQUEST, "유효하지 않은 코드입니다."),
+
+
     // 401
     UN_AUTHENTICATION(HttpStatus.UNAUTHORIZED, "인증되지 않은 요청입니다."),
     TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, "토큰이 만료되었습니다."),
@@ -18,10 +24,6 @@ public enum ErrorType {
     // 인가
     // 403
     UN_AUTHORIZATION(HttpStatus.FORBIDDEN, "허용되지 않은 접근입니다."),
-
-    // 검증
-    // 400
-    BAD_REQUEST(HttpStatus.BAD_REQUEST, "유효성 검증 실패. 잘못된 요청입니다."),
 
     // 데이터
     // 404
@@ -35,6 +37,10 @@ public enum ErrorType {
     EMAIL_ALREADY_USED(HttpStatus.CONFLICT, "이미 사용 중인 이메일입니다."),
     NICKNAME_ALREADY_USED(HttpStatus.CONFLICT, "이미 사용 중인 닉네임입니다."),
     PHONE_UMBER_ALREADY_USED(HttpStatus.CONFLICT, "이미 사용 중인 전화번호 입니다."),
+
+    // gone
+    // 410
+    VERIFICATION_CODE_EXPIRED(HttpStatus.GONE, "이메일 코드 인증 시간이 만료되었습니다."),
 
     // 서버 에러
     // 500

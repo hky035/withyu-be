@@ -10,8 +10,10 @@ public enum SuccessType {
 
     // 200
     OK(HttpStatus.OK, "요청이 정상적으로 완료되었습니다."),
+    MAIL_SEND_SUCCESS(HttpStatus.OK, "메일 전송이 완료되었습니다."),
     REGISTRATION_SUCCESS(HttpStatus.OK, "카풀 신청에 성공하였습니다."),
     LOGIN_SUCCESS(HttpStatus.OK, "로그인에 성공하였습니다."),
+    VERIFY_CODE_SUCCESS(HttpStatus.OK, "이메일 인증에 성공하였습니다."),
 
     // 201
     CREATED(HttpStatus.CREATED, "등록을 성공하였습니다."),

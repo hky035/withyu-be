@@ -35,3 +35,10 @@ jwt:
     access-token: ${JWT_ACCESS_TOKEN_EXPIRATION:1209600000}
     refresh-token: ${JWT_REFRESH_TOKEN_EXPIRATION:1209600000}
   issuer: ${JWT_ISSUER:withyu}
+
+--- # mail
+mail:
+  host: smtp.gmail.com
+  port: 587
+  admin-mail: ${ADMIN_EMAIL:admin@withyu.com}
+  password: ${ADMIN_EMAIL_APP_PASSWORD:password}

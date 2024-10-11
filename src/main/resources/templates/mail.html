@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4; ">
+<h1 style="background-color: #333; color: white; padding: 20px; text-align: center; border-radius: 5px 5px 0 0; margin: 0; font-size: 28px;">
+    withyu
+</h1>
+<div style="background: white; padding: 20px; border-radius: 0 0 5px 5px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+    <h2 style="margin: 0;">안녕하세요!</h2>
+    <p style="color: #555; line-height: 1.6;">
+        요청하신 인증번호는 아래와 같습니다.
+    </p>
+    <p th:text="${code}" style="margin: 20px 0; font-size: 30px; font-weight: 600"></p>
+    <p style="color: #555; line-height: 1.6;">
+        위의 인증번호를 3분 안에 입력하여 주시길 바랍니다.
+    </p>
+</div>
+</body>
+</html>

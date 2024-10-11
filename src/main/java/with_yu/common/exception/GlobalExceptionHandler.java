@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<?> handleCustomException(final CustomException e) {
         ErrorType error = e.getErrorType();
-        log.error("Error occured : [errorCode={}, message={}]", error.getStatusCode(), error.getMessage());
+        log.error("Error occurred : [errorCode={}, message={}]", error.getStatusCode(), error.getMessage());
         return ResponseEntity.status(error.getStatus()).body(ErrorRes.of(error.getStatusCode(),error.getMessage()));
     }
 
@@ -33,7 +33,7 @@ public class GlobalExceptionHandler {
         for(FieldError fieldError : e.getBindingResult().getFieldErrors() ){
             body.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
-        log.error("Error occured : [message={}]",body);
+        log.error("Error occurred : [message={}]",body);
         return ResponseEntity.status(ErrorType.BAD_REQUEST.getStatus()).body(body);
     }
 
@@ -41,7 +41,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler
     protected ResponseEntity<?> handleException(final Exception e) {
         ErrorRes error = new ErrorRes(INTERNAL_SERVER_ERROR.getStatusCode(), INTERNAL_SERVER_ERROR.getMessage());
-        log.error("Error occured : [errorCode={}, message={}]\n<<Stack Trace 5 lines>>\n{}",e.getClass(), e.getMessage(), getStackTrace(e));
+        log.error("Error occurred : [errorCode={}, message={}]\n<<Stack Trace 5 lines>>\n{}",e.getClass(), e.getMessage(), getStackTrace(e));
         return ResponseEntity.status(error.status()).body(error);
     }
 
